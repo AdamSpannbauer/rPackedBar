@@ -185,6 +185,10 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   round_num = nchar(round(min(tick_text[tick_text>0]),0))-1
   tick_text = format(round(tick_text, -round_num), big.mark = ',')
 
+  if(trimws(hover_label) != "") {
+    hover_label = paste0(hover_label, ":")
+  }
+
   #plot blank canvas and hover info points
   p = plotly::plot_ly(canvas_df,
                       x = ~x,
@@ -200,7 +204,7 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                       size=~size,
                       hoverinfo='text',
                       text=~paste0(
-                        name,'<br>',hover_label,':',
+                        name,'<br>',hover_label,
                         format(size*sum(my_data_sum[[value_column]]),big.mark=',')),
                       opacity=0,
                       marker=list(color='#E8E8E8'),
@@ -211,7 +215,7 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                       size=~size,
                       hoverinfo='text',
                       text=~paste0(
-                        name,'<br>',hover_label,':',
+                        name,'<br>',hover_label,
                         format(size*sum(my_data_sum[[value_column]]),big.mark=',')),
                       opacity=0,
                       marker=list(color=color_bar_color),
