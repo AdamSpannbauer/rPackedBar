@@ -1,7 +1,7 @@
 # rPackedBar
-Packed Bar Charts in R with Plotly (https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972)
+Packed Bar Charts in R with Plotly ([Introducing Packed Bars](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972))
 
-This small package is an adaptation of the packed bar chart introduced by [XanGregg](https://community.jmp.com/t5/user/viewprofilepage/user-id/494) in a [JMP User Community Post](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972).  The package currently consists of only 1 function to make a packed bar chart using [plotly](https://cran.r-project.org/package=plotly).
+This small package is an adaptation of the packed bar chart introduced by [XanGregg](https://twitter.com/xangregg) in a [JMP User Community Post](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972) ([XanGregg's packed bar git repo](https://github.com/xangregg/packedbars)).  The package currently consists of only 1 function to make a packed bar chart using [plotly](https://cran.r-project.org/package=plotly).
 
 *Note: The package does not have written tests (nor extensive testing); this was a quick tinkering experiment for fun.  If there is interest I can spend time to improve the code quality.*
 
