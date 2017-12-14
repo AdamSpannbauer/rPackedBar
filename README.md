@@ -5,6 +5,10 @@ This small package is an adaptation of the packed bar chart introduced by [XanGr
 
 *Note: The package does not have written tests (nor extensive testing); this was a quick tinkering experiment for fun.  If there is interest I can spend time to improve the code quality.*
 
+## Output
+
+![](custom_pack_bar.gif)
+
 ## Usage
 
     #install package from github
