@@ -42,7 +42,7 @@ data(GNI2014, package = 'treemap')
 data.table::setDT(GNI2014)
 my_input_data = GNI2014[,sum(population), by=country]
 
-plotly_packed_bar(input_data,
+plotly_packed_bar(my_input_data,
                   label_column    = 'country',
                   value_column    = 'V1',
                   number_rows     = 4,
