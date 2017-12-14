@@ -19,7 +19,7 @@
 #' data.table::setDT(GNI2014)
 #' my_input_data = GNI2014[,sum(population), by=country]
 #'
-#' plotly_packed_bar(input_data,
+#' plotly_packed_bar(my_input_data,
 #'                   label_column    = 'country',
 #'                   value_column    = 'V1',
 #'                   number_rows     = 4,
@@ -45,9 +45,9 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   # calc row height based on num rows
   bar_h = 1/number_rows
   # set aside data for colored bars
-  colored_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']])][1:number_rows]
+  colored_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']]),][1:number_rows,]
   # set aside data for grey bars
-  gray_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']])][-c(1:number_rows)]
+  gray_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']]),][-c(1:number_rows),]
 
   #calc y vals for bar heights
   row_y_list = lapply(1:number_rows, function(i) {
