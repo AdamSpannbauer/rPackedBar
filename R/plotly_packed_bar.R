@@ -12,6 +12,7 @@
 #' @param color_bar_color color of main bars in chart (can be name or hex) remaining bars will be variations of gray
 #' @return plotly object of the packed bar chart
 #' @importFrom plotly "%>%"
+#' @details The packed barchart currently only works for positive data.
 #' @examples
 #' \dontrun{
 #' data(GNI2014, package = 'treemap')
@@ -180,10 +181,11 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   canvas_df = data.frame(x=0:max(row_sums), y=0:1)
 
   #gen x axis breaks and labels (cheating by rounding rn)
-  tick_breaks = seq(0, max(row_sums)*.9, length.out = 5)
-  tick_text = tick_breaks*sum(my_data_sum[[value_column]])
-  round_num = nchar(round(min(tick_text[tick_text>0]),0))-1
-  tick_text = format(round(tick_text, -round_num), big.mark = ',')
+  max_x = max(row_sums)
+  max_val = max_x*sum(my_data_sum[[value_column]])
+  tick_text = scales::cbreaks(c(0, max_val))
+  tick_breaks = tick_text$breaks/sum(my_data_sum[[value_column]])
+  tick_text = tick_text$labels
 
   if(trimws(hover_label) != "") {
     hover_label = paste0(hover_label, ":")
