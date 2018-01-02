@@ -1,4 +1,7 @@
 # rPackedBar
+
+[![Travis-CI Build Status](https://travis-ci.org/AdamSpannbauer/rPackedBar.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/rPackedBar) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AdamSpannbauer/rPackedBar?branch=master&svg=true)](https://ci.appveyor.com/project/AdamSpannbauer/rPackedBar) [![Coverage Status](https://img.shields.io/codecov/c/github/AdamSpannbauer/rPackedBar/master.svg)](https://codecov.io/github/AdamSpannbauer/rPackedBar?branch=master) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rPackedBar)](https://cran.r-project.org/package=rPackedBar)
+
 Packed Bar Charts in R with Plotly ([Introducing Packed Bars](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972))
 
 This small package is an adaptation of the packed bar chart introduced by [XanGregg](https://twitter.com/xangregg) in a [JMP User Community Post](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972) ([XanGregg's packed bar git repo](https://github.com/xangregg/packedbars)).  The package currently consists of only 1 function to make a packed bar chart using [plotly](https://cran.r-project.org/package=plotly).

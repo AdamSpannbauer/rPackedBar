@@ -185,7 +185,11 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   max_val = max_x*sum(my_data_sum[[value_column]])
   tick_text = scales::cbreaks(c(0, max_val))
   tick_breaks = tick_text$breaks/sum(my_data_sum[[value_column]])
-  tick_text = tick_text$labels
+  if(max(tick_text$breaks) > 10000) {
+    tick_text = tick_text$labels
+  } else {
+    tick_text = as.character(tick_text$breaks)
+  }
 
   if(trimws(hover_label) != "") {
     hover_label = paste0(hover_label, ":")
