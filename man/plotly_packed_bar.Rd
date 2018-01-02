@@ -35,6 +35,9 @@ plotly object of the packed bar chart
 Create a plotly packed bar chart
 Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 }
+\details{
+The packed barchart currently only works for positive data.
+}
 \examples{
 \dontrun{
 data(GNI2014, package = 'treemap')
