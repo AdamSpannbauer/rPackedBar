@@ -31,7 +31,7 @@
 #'                   color_bar_color ='orange')
 #' }
 
-#function to take data.frame and create plotly packed bar
+#' @export
 plotly_packed_bar = function(input_data, label_column, value_column,
                              number_rows=3,
                              plot_title='',
