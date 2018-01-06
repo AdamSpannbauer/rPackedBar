@@ -43,213 +43,26 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   my_data_sum = data.table::copy(input_data)
   my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])
 
-  # calc row height based on num rows
-  bar_h = 1/number_rows
-  # set aside data for colored bars
-  colored_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']]),][1:number_rows,]
+  color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column)
+  gray_data  = gen_gray_bars(my_data_sum, number_rows, color_data$raw_data, label_column, min_label_width)
+
   # set aside data for grey bars
   gray_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']]),][-c(1:number_rows),]
 
-  #calc y vals for bar heights
-  row_y_list = lapply(1:number_rows, function(i) {
-    list(y0 = 1-bar_h*(i-1), y1 = 1-bar_h*i)
-  })
-
-  #initalize storage
-  colored_bar_list = vector('list', nrow(colored_bar_data))
-  colored_ann_list = vector('list', nrow(colored_bar_data))
-  colored_hover_point_list = vector('list', nrow(colored_bar_data))
-  gray_bar_list = vector('list', nrow(gray_bar_data))
-  gray_ann_list = vector('list', nrow(gray_bar_data))
-  gray_hover_point_list = vector('list', nrow(gray_bar_data))
-
-  #track which bar level we're in
-  color_row_i = 1
-  #loop through n bar levels
-  for (i in 1:nrow(colored_bar_data)) {
-    row = colored_bar_data[i,]
-
-    #set corners for colored rectangle shape objs
-    out_bar = list(
-      type = "rect",
-      fillcolor = color_bar_color,
-      line = list(color = color_bar_color, width=.1),
-      x0 = 0,
-      x1 = row[['max_rel_val']],
-      xref = "x",
-      y0 = row_y_list[[color_row_i]]$y0,
-      y1 = row_y_list[[color_row_i]]$y1,
-      yref = "y"
-    )
-
-    #calc center x and y point for current bar
-    x = as.numeric(row[['max_rel_val']])/2
-    y = row_y_list[[color_row_i]]$y0 - (row_y_list[[color_row_i]]$y0 - row_y_list[[color_row_i]]$y1)/2
-    out_ann = list(
-      x = x,
-      y = y,
-      xref = 'x',
-      yref = 'y',
-      #set label
-      text = row[[label_column]],
-      showarrow = FALSE
-    )
-
-    #put point at center of shape for hover info
-    hover_point = data.table::data.table(
-      name = row[[label_column]],
-      x = x,
-      y = y,
-      size = row[['max_rel_val']]-0
-    )
-
-    colored_bar_list[[i]] = out_bar
-    colored_ann_list[[i]] = out_ann
-    colored_hover_point_list[[i]] = hover_point
-
-    color_row_i = 1+color_row_i
-  }
-  #combine hover info list into single df
-  colored_hover_point_dt = data.table::rbindlist(colored_hover_point_list)
-
-  #get max x level for each bar level
-  row_sums = colored_bar_data$max_rel_val
-  #gen gray ramp function
-  gray_gen = colorRampPalette(c("#E8E8E8","#909090"))
-  #gen gray ramp
-  grays = gray_gen(20)
-  for (i in 1:nrow(gray_bar_data)) {
-    row = gray_bar_data[i,]
-    # random gray
-    color_i = sample(grays, 1)
-
-    #calc which row to put block in based on min x value after added this block
-    x_val = as.numeric(row[['max_rel_val']])
-    home_row = which.min(row_sums + x_val)
-    x0 = row_sums[[home_row]]
-    x1 = row_sums[[home_row]] + x_val
-    row_sums[[home_row]] <- x1
-
-    #set corners for gray rectangle shape objs (based on derived bar row num)
-    out_bar = list(
-      type = "rect",
-      fillcolor = color_i,
-      line = list(color = color_i, width=.1),
-      x0 = x0,
-      x1 = x1,
-      xref = "x",
-      y0 = row_y_list[[home_row]]$y0,
-      y1 = row_y_list[[home_row]]$y1, yref = "y"
-    )
-
-    #calc center x and y point for current bar
-    x = x0 + x_val/2
-    y = row_y_list[[home_row]]$y0 - (row_y_list[[home_row]]$y0 - row_y_list[[home_row]]$y1)/2
-    out_ann = list(
-      x = x,
-      y = y,
-      xref = 'x',
-      yref = 'y',
-      #set label
-      text = row[[label_column]],
-      showarrow = FALSE
-    )
-
-    #put point at center of shape for hover info
-    hover_point = data.table::data.table(
-      name = row[[label_column]],
-      x = x,
-      y = y,
-      size = x1-x0
-    )
-
-    #dont show annotation if smaller than threshold
-    if (x_val < min_label_width) out_ann = NULL
-
-    gray_bar_list[[i]] = out_bar
-    gray_ann_list[[i]] = out_ann
-    gray_hover_point_list[[i]] = hover_point
-  }
-  #combine hover info list into single df
-  gray_hover_point_dt = data.table::rbindlist(gray_hover_point_list)
-
-  #remove NULLs from annotations (shapes that are too narrow for label)
-  gray_ann_list = gray_ann_list[-which(vapply(gray_ann_list, is.null, logical(1)))]
-
-
   #set canvas shape based on xvalues. make y points 0-1
-  canvas_df = data.frame(x=0:max(row_sums), y=0:1)
+  canvas_df = data.frame(x=0:max(gray_data$row_sums), y=0:1)
 
-  #gen x axis breaks and labels (cheating by rounding rn)
-  max_x = max(row_sums)
-  max_val = max_x*sum(my_data_sum[[value_column]])
-  tick_text = scales::cbreaks(c(0, max_val))
-  tick_breaks = tick_text$breaks/sum(my_data_sum[[value_column]])
-  if(max(tick_text$breaks) > 10000) {
-    tick_text = tick_text$labels
-  } else {
-    tick_text = as.character(tick_text$breaks)
-  }
+  x_labs = gen_xaxis_labels(my_data_sum, gray_data$row_sums, value_column)
 
-  if(trimws(hover_label) != "") {
-    hover_label = paste0(hover_label, ":")
-  }
+  p = gen_plotly_packed_bar(my_data_sum, value_column,
+                            color_bar_color, hover_label,
+                            canvas_df,
+                            plot_title, xaxis_label,
+                            gray_data$hover_point_dt, color_data$hover_point_dt,
+                            gray_data$bar_list, color_data$bar_list,
+                            gray_data$ann_list, color_data$ann_list,
+                            x_labs$tick_breaks, x_labs$tick_text)
 
-  #plot blank canvas and hover info points
-  p = plotly::plot_ly(canvas_df,
-                      x = ~x,
-                      y = ~y,
-                      mode='markers',
-                      type='scatter',
-                      opacity=0,
-                      hoverinfo='none',
-                      showlegend=FALSE) %>%
-    plotly::add_trace(data=gray_hover_point_dt,
-                      x=~x,
-                      y=~y,
-                      size=~size,
-                      hoverinfo='text',
-                      text=~paste0(
-                        name,'<br>',hover_label,
-                        format(size*sum(my_data_sum[[value_column]]),big.mark=',')),
-                      opacity=0,
-                      marker=list(color='#E8E8E8'),
-                      showlegend=FALSE) %>%
-    plotly::add_trace(data=colored_hover_point_dt,
-                      x=~x,
-                      y=~y,
-                      size=~size,
-                      hoverinfo='text',
-                      text=~paste0(
-                        name,'<br>',hover_label,
-                        format(size*sum(my_data_sum[[value_column]]),big.mark=',')),
-                      opacity=0,
-                      marker=list(color=color_bar_color),
-                      showlegend=FALSE)
-
-  # add shapes to the layout
-  p = plotly::layout(p, title = plot_title,
-                     shapes = c(
-                       colored_bar_list,
-                       gray_bar_list
-                     ),
-                     annotations = c(
-                       colored_ann_list,
-                       gray_ann_list
-                     ),
-                     hovermode="closest",
-                     yaxis=list(title='',
-                                zeroline=FALSE,
-                                showline=FALSE,
-                                showticklabels=FALSE,
-                                showgrid=FALSE),
-                     xaxis=list(title=xaxis_label,
-                                zeroline=FALSE,
-                                showline=FALSE,
-                                showticklabels=TRUE,
-                                showgrid=TRUE,
-                                tickvals=tick_breaks,
-                                ticktext=tick_text)
-                     )
-  p
+  return(p)
 }
+
