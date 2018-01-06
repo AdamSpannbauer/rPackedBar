@@ -1,9 +1,12 @@
-gen_xaxis_labels = function(summ_dt, row_sums, value_column) {
+#' internal helper function to create xaxis labels
+
+#' @keywords internal
+gen_xaxis_labels = function(row_sums, total_x) {
   #gen x axis breaks and labels (cheating by rounding rn)
   max_x = max(row_sums)
-  max_val = max_x*sum(summ_dt[[value_column]])
+  max_val = max_x*total_x
   tick_text = scales::cbreaks(c(0, max_val))
-  tick_breaks = tick_text$breaks/sum(summ_dt[[value_column]])
+  tick_breaks = tick_text$breaks/total_x
   if(max(tick_text$breaks) > 10000) {
     tick_text = tick_text$labels
   } else {

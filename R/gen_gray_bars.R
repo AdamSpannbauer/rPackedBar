@@ -1,3 +1,6 @@
+#' internal helper function to create gray portion of packed barchart
+
+#' @keywords internal
 gen_gray_bars = function(summ_dt, number_rows, color_bar_data, label_column, min_label_width) {
   gray_bar_data = summ_dt[order(-summ_dt[['max_rel_val']]),][-c(1:number_rows),]
 

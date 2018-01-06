@@ -1,4 +1,6 @@
+#' internal helper function to do actual plotting of packed barchart
 
+#' @keywords internal
 gen_plotly_packed_bar = function(summ_dt, value_column, color_bar_color, hover_label, canvas_df,
                                  plot_title, xaxis_label,
                                  gray_hover_point_dt, colored_hover_point_dt,

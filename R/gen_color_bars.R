@@ -1,3 +1,6 @@
+#' internal helper function to create colored portion of packed barchart
+
+#' @keywords internal
 gen_color_bars = function(summ_dt, number_rows, bar_color, label_column) {
   # set aside data for colored bars
   colored_bar_data = summ_dt[order(-summ_dt[['max_rel_val']]),][1:number_rows,]

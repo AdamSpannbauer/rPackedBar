@@ -46,13 +46,10 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column)
   gray_data  = gen_gray_bars(my_data_sum, number_rows, color_data$raw_data, label_column, min_label_width)
 
-  # set aside data for grey bars
-  gray_bar_data = my_data_sum[order(-my_data_sum[['max_rel_val']]),][-c(1:number_rows),]
-
   #set canvas shape based on xvalues. make y points 0-1
   canvas_df = data.frame(x=0:max(gray_data$row_sums), y=0:1)
 
-  x_labs = gen_xaxis_labels(my_data_sum, gray_data$row_sums, value_column)
+  x_labs = gen_xaxis_labels(gray_data$row_sums, sum(my_data_sum[[value_column]]))
 
   p = gen_plotly_packed_bar(my_data_sum, value_column,
                             color_bar_color, hover_label,
