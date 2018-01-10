@@ -1,8 +1,7 @@
-context("plotly_packed_bar")
+context("plotting functions")
 
-#TODO: add better, more exhaustive tests
-
-test_that("runs", {
+test_that("plot class output", {
+  set.seed(42)
   plot_df = data.frame(lab=letters,
                        val=rexp(26),
                        stringsAsFactors = FALSE)
