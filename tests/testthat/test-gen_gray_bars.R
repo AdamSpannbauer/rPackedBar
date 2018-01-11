@@ -8,7 +8,7 @@ test_that("output object class and structure", {
 
   plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
 
-  color_output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab')
+  color_output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03)
 
   output = gen_gray_bars(plot_df, number_rows=3,
                          color_output$raw_data,
@@ -59,7 +59,7 @@ test_that("object value", {
 
   plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
 
-  color_output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab')
+  color_output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03)
 
   output = gen_gray_bars(plot_df, number_rows=3,
                          color_output$raw_data,

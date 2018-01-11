@@ -8,7 +8,7 @@ test_that("output object class and structure", {
 
   plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
 
-  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab')
+  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03)
 
   expect_identical(class(output), "list")
 
@@ -50,7 +50,9 @@ test_that("object value", {
 
   plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
 
-  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab')
+  output = gen_color_bars(plot_df, number_rows=3,
+                          bar_color='blue',
+                          label_column='lab', min_label_width=.03)
 
   output$hover_point_dt = as.data.frame(output$hover_point_dt)
 
