@@ -43,7 +43,7 @@ plotly_packed_bar = function(input_data, label_column, value_column,
   my_data_sum = data.table::copy(input_data)
   my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])
 
-  color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column)
+  color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column, min_label_width)
   gray_data  = gen_gray_bars(my_data_sum, number_rows, color_data$raw_data, label_column, min_label_width)
 
   #set canvas shape based on xvalues. make y points 0-1

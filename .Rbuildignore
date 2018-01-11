@@ -5,3 +5,4 @@ default_pack_bar.gif
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^codecov\.yml$
+^\.httr-oauth$
