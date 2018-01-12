@@ -10,6 +10,7 @@
 #' @param hover_label text to appear by number in hover information (typically same as xaxis label)
 #' @param min_label_width min relative length of bar to receive a static label (too small and text will overflow sides of bar)
 #' @param color_bar_color color of main bars in chart (can be name or hex) remaining bars will be variations of gray
+#' @param label_color color of text labels that appear over colored bars
 #' @return plotly object of the packed bar chart
 #' @importFrom plotly "%>%"
 #' @details The packed barchart currently only works for positive data.
@@ -38,12 +39,13 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                              xaxis_label='',
                              hover_label='',
                              min_label_width=.03,
-                             color_bar_color='steelblue') {
+                             color_bar_color='steelblue',
+                             label_color = 'black') {
 
   my_data_sum = data.table::copy(input_data)
   my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])
 
-  color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column, min_label_width)
+  color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column, min_label_width, label_color)
   gray_data  = gen_gray_bars(my_data_sum, number_rows, color_data$raw_data, label_column, min_label_width)
 
   #set canvas shape based on xvalues. make y points 0-1

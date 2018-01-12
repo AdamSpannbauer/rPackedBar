@@ -7,7 +7,8 @@ Packed bar charts are a variation of treemaps for visualizing skewed data.  The 
 \usage{
 plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
   plot_title = "", xaxis_label = "", hover_label = "",
-  min_label_width = 0.03, color_bar_color = "steelblue")
+  min_label_width = 0.03, color_bar_color = "steelblue",
+  label_color = "black")
 }
 \arguments{
 \item{input_data}{data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length}
@@ -27,6 +28,8 @@ plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
 \item{min_label_width}{min relative length of bar to receive a static label (too small and text will overflow sides of bar)}
 
 \item{color_bar_color}{color of main bars in chart (can be name or hex) remaining bars will be variations of gray}
+
+\item{label_color}{color of text labels that appear over colored bars}
 }
 \value{
 plotly object of the packed bar chart

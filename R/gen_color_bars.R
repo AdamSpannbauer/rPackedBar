@@ -1,7 +1,7 @@
 #' internal helper function to create colored portion of packed barchart
 
 #' @keywords internal
-gen_color_bars = function(summ_dt, number_rows, bar_color, label_column, min_label_width) {
+gen_color_bars = function(summ_dt, number_rows, bar_color, label_column, min_label_width, label_color) {
   # set aside data for colored bars
   colored_bar_data = summ_dt[order(-summ_dt[['max_rel_val']]),][1:number_rows,]
 
@@ -46,7 +46,8 @@ gen_color_bars = function(summ_dt, number_rows, bar_color, label_column, min_lab
       yref = 'y',
       #set label
       text = row[[label_column]],
-      showarrow = FALSE
+      showarrow = FALSE,
+      font = list(color = label_color)
     )
 
     #put point at center of shape for hover info
