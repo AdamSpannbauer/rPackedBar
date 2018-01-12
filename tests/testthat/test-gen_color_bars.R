@@ -8,7 +8,7 @@ test_that("output object class and structure", {
 
   plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
 
-  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03)
+  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03, 'black')
 
   expect_identical(class(output), "list")
 
@@ -28,12 +28,12 @@ test_that("output object class and structure", {
 
   expect_identical(class(output$ann_list), "list")
   expect_identical(length(output$ann_list), 3L)
-  expect_identical(lapply(output$ann_list, length), list(6L, 6L, 6L))
+  expect_identical(lapply(output$ann_list, length), list(7L, 7L, 7L))
   expect_identical(names(output$ann_list[[1]]),
-                   c("x", "y", "xref", "yref", "text", "showarrow"))
+                   c("x", "y", "xref", "yref", "text", "showarrow", "font"))
   expect_identical(lapply(output$ann_list[[1]], class),
                    list(x = "numeric", y = "numeric", xref = "character",
-                        yref = "character", text = "character", showarrow = "logical"))
+                        yref = "character", text = "character", showarrow = "logical", font="list"))
 
   expect_identical(class(output$hover_point_dt), c("data.table", "data.frame"))
   expect_identical(dim(output$hover_point_dt), c(3L,4L))
@@ -52,7 +52,7 @@ test_that("object value", {
 
   output = gen_color_bars(plot_df, number_rows=3,
                           bar_color='blue',
-                          label_column='lab', min_label_width=.03)
+                          label_column='lab', min_label_width=.03, 'black')
 
   output$hover_point_dt = as.data.frame(output$hover_point_dt)
 
@@ -88,16 +88,16 @@ test_that("object value", {
                                                       .Names = c("type", "fillcolor", "line", "x0", "x1", "xref", "y0", "y1", "yref"))),
                             ann_list = list(structure(list(x = 0.0938717087085463, y = 0.833333333333333,
                                                            xref = "x", yref = "y",
-                                                           text = "w", showarrow = FALSE),
-                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow")),
+                                                           text = "w", showarrow = FALSE, font=list(color="black")),
+                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow", "font")),
                                             structure(list(x = 0.0913696342290684, y = 0.5,
                                                            xref = "x", yref = "y",
-                                                           text = "u", showarrow = FALSE),
-                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow")),
+                                                           text = "u", showarrow = FALSE, font=list(color="black")),
+                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow", "font")),
                                             structure(list(x = 0.0452579561593126, y = 0.166666666666667,
                                                            xref = "x", yref = "y",
-                                                           text = "l", showarrow = FALSE),
-                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow"))),
+                                                           text = "l", showarrow = FALSE, font=list(color="black")),
+                                                      .Names = c("x", "y", "xref", "yref", "text", "showarrow", "font"))),
                             hover_point_dt = structure(list(name = c("w", "u", "l"),
                                                             x = c(0.0938717087085463, 0.0913696342290684, 0.0452579561593126),
                                                             y = c(0.833333333333333, 0.5, 0.166666666666667),

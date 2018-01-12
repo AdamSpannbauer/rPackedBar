@@ -9,7 +9,7 @@ gen_plotly_packed_bar = function(summ_dt, value_column, color_bar_color, hover_l
                                  tick_breaks, tick_text) {
 
   if(trimws(hover_label) != "") {
-    hover_label = paste0(hover_label, ":")
+    hover_label = paste0(hover_label, ": ")
   }
 
   #plot blank canvas and hover info points
