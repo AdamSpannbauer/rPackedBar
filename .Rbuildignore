@@ -1,7 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-custom_pack_bar.gif
-default_pack_bar.gif
+readme/custom_pack_bar.gif
+readme/default_pack_bar.gif
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^codecov\.yml$

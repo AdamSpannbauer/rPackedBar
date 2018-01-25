@@ -8,7 +8,7 @@ This small package is an adaptation of the packed bar chart introduced by [XanGr
 
 ## Output
 
-![](custom_pack_bar.gif)
+![](readme/custom_pack_bar.gif)
 
 ## Usage
 
@@ -46,7 +46,7 @@ This small package is an adaptation of the packed bar chart introduced by [XanGr
                       label_column = 'country',
                       value_column = 'V1')
                       
-![](default_pack_bar.gif)
+![](readme/default_pack_bar.gif)
 
     #customized packed bar
     plotly_packed_bar(my_input_data,
@@ -59,7 +59,7 @@ This small package is an adaptation of the packed bar chart introduced by [XanGr
                       min_label_width = .025,
                       color_bar_color ='orange')
                       
-![](custom_pack_bar.gif)
+![](readme/custom_pack_bar.gif)
 
 
 
