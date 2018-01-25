@@ -21,11 +21,12 @@ gen_gray_bars = function(summ_dt, number_rows, color_bar_data, label_column, min
   #gen gray ramp function
   gray_gen = colorRampPalette(c("#E8E8E8","#909090"))
   #gen gray ramp
-  grays = gray_gen(20)
+  grays = gray_gen(105)
+  low_grays = grays[1:50]
+  hi_grays  = grays[56:105]
+  last_gray_vec = sample(c(low_grays, hi_grays), number_rows, replace=TRUE)
   for (i in 1:nrow(gray_bar_data)) {
     row = gray_bar_data[i,]
-    # random gray
-    color_i = sample(grays, 1)
 
     #calc which row to put block in based on min x value after added this block
     x_val = as.numeric(row[['max_rel_val']])
@@ -33,6 +34,17 @@ gen_gray_bars = function(summ_dt, number_rows, color_bar_data, label_column, min
     x0 = row_sums[[home_row]]
     x1 = row_sums[[home_row]] + x_val
     row_sums[[home_row]] <- x1
+
+    if (i == 1) {
+      # random gray
+      color_i = sample(low_grays, 1)
+    } else {
+      last_gray = last_gray_vec[home_row]
+      color_i = ifelse(last_gray %in% low_grays,
+                       sample(hi_grays, 1),
+                       sample(low_grays, 1))
+    }
+    last_gray_vec[home_row] = color_i
 
     #set corners for gray rectangle shape objs (based on derived bar row num)
     out_bar = list(
