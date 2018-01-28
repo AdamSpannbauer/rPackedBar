@@ -6,3 +6,4 @@ readme/default_pack_bar.gif
 ^\.travis\.yml$
 ^codecov\.yml$
 ^\.httr-oauth$
+vignettes/Viz_Twitter_Data.Rmd
