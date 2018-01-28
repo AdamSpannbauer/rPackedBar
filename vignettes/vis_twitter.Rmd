@@ -1,8 +1,12 @@
 ---
-title: "Visualizing Twitter Data with Packed Barchart"
+title: "Visualizing Twitter Data with a Packed Barchart"
 author: "Adam Spannbauer"
-date: "1/28/2018"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 Before we start the process of getting and visualizing the twitter data.  Lets go ahead and take a peak at the packed barchart that will be the output of the process.
@@ -14,7 +18,7 @@ tweet_dt = data.table::fread("~/Desktop/tweet_data.csv")
 tweet_dt = tweet_dt[order(-total_fav_rt),]
 ```
 
-```{r packedBar, echo=FALSE}
+```{r packedBar, echo=FALSE, fig.height = 4, fig.width = 6, fig.align = "center"}
 set.seed(42)
 p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
                               label_column = "text_preview",
@@ -84,6 +88,8 @@ get_user_tweets = function(user, n, api_key, api_secret, access_token, access_to
 }
 ```
 
+#### Cleaning the Data
+
 We now have a working function to get our tweet data.  In the below chunk we call the function and wrangle the data into a nice `data.table` structure for plotting.
 
 ```{r eval=FALSE}
@@ -118,11 +124,15 @@ head(tweet_dt[,-c("time","text")])
 head(tweet_dt[,-c("time","text")])
 ```
 
+## Plotting the Twitter Data
+
 Before plotting with the packed barchart let's take a peak at the distribution of the metric we'll be plotting.  As we see in the plot below, this data is very skewed.  This type of distribution is a good case for the packed barchart's intended design.
 
-```{r exp_plot, message=FALSE, warning=FALSE}
+```{r exp_plot, message=FALSE, warning=FALSE, fig.align = "center"}
 plot(tweet_dt$total_fav_rt, type='l', ylab="Fav|RT Count")
 ```
+
+<br>
 
 At this point, we're ready to use the packed barchart to see our twitter data in a new light.  To do this we call the function `rPackedBar::plotly_packed_bar` and specify our options.
 
@@ -151,7 +161,7 @@ p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
 plotly::config(p, displayModeBar=FALSE)
 ```
 
-```{r plotAgain, echo=FALSE}
+```{r plotAgain, echo=FALSE, fig.height = 4, fig.width = 6, fig.align = "center"}
 set.seed(42)
 p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
                               label_column = "text_preview",
@@ -166,4 +176,4 @@ p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
 plotly::config(p, displayModeBar=FALSE)
 ```
 
-<br><hr>
+<br><br>

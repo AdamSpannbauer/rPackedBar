@@ -62,6 +62,8 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                             gray_data$ann_list, color_data$ann_list,
                             x_labs$tick_breaks, x_labs$tick_text)
 
+  p = plotly::layout(p, margin=list(l = 0, r=0))
+
   return(p)
 }
 
