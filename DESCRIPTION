@@ -4,7 +4,7 @@ Title: Packed Bar Charts in R with Plotly
 Version: 0.1.0
 Author: Adam Spannbauer [aut, cre]
 Maintainer: Adam Spannbauer <spannbaueradam@gmail.com>
-Description: Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972).
+Description: Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by Xan Gregg at JMP.
 License: MIT + file LICENSE
 URL: https://github.com/AdamSpannbauer/rPackedBar
 BugReports: https://github.com/AdamSpannbauer/rPackedBar/issues

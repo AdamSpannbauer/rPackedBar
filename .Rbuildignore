@@ -9,3 +9,4 @@ readme/default_pack_bar.gif
 vignettes/vis_twitter.Rmd
 vignettes/tweet_data.csv
 README.md
+^cran-comments\.md$
