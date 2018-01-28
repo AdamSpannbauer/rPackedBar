@@ -14,6 +14,5 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: covr,
     testthat,
-    knitr,
-    rmarkdown
-VignetteBuilder: knitr
+    R.rsp
+VignetteBuilder: R.rsp

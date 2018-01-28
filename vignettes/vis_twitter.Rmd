@@ -14,7 +14,7 @@ Before we start the process of getting and visualizing the twitter data.  Lets g
 <br>
 
 ```{r read_in_data, echo=FALSE}
-tweet_dt = data.table::fread("~/Desktop/tweet_data.csv")
+tweet_dt = data.table::fread("tweet_data.csv")
 tweet_dt = tweet_dt[order(-total_fav_rt),]
 ```
 
