@@ -1,0 +1,169 @@
+---
+title: "Visualizing Twitter Data with Packed Barchart"
+author: "Adam Spannbauer"
+date: "1/28/2018"
+output: html_document
+---
+
+Before we start the process of getting and visualizing the twitter data.  Lets go ahead and take a peak at the packed barchart that will be the output of the process.
+
+<br>
+
+```{r read_in_data, echo=FALSE}
+tweet_dt = data.table::fread("~/Desktop/tweet_data.csv")
+tweet_dt = tweet_dt[order(-total_fav_rt),]
+```
+
+```{r packedBar, echo=FALSE}
+set.seed(42)
+p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
+                              label_column = "text_preview",
+                              value_column = "total_fav_rt",
+                              number_rows = 4,
+                              plot_title = "Tweet Interactions",
+                              xaxis_label = "Favorites & RTs",
+                              hover_label = "Favs & RTs",
+                              min_label_width = .1,
+                              color_bar_color = "#00aced",
+                              label_color = "white")
+plotly::config(p, displayModeBar=FALSE)
+```
+
+<br>
+
+## Gathering Twitter Data
+
+Before we can visualize any data we'll have to gather it.  There are R twitter packages out there, such as `twitteR`, but I prefer to use a custom function (shown below).  If you'd like to use the custom function, you'll first need to provide your api keys/secrets.
+
+#### Define API Keys
+
+```{r key_define, eval=FALSE}
+api_key     = 'xxxxxxxxxxxxxxxxxxxxxxxxx'
+api_secret  = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+access_token        = 'xxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+access_token_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+```
+
+#### Custom Twitter API Function
+
+```{r tweet_func, eval=FALSE, message=FALSE, warning=FALSE}
+#custom function to get tweets by a username
+get_user_tweets = function(user, n, api_key, api_secret, access_token, access_token_secret) {
+  #set up oauth
+  auth = httr::oauth_app("twitter", key=api_key, secret=api_secret)
+  sig  = httr::sign_oauth1.0(auth, token=access_token, token_secret=access_token_secret)
+  #loop through GETs getting max of 200 per iteration
+  nLeft  = n
+  i = 0
+  timeline = vector("list", n)
+  while (nLeft > 0) {
+    nToGet = min(200, nLeft)
+    i = i+1
+    #build GET URL
+    if (i==1) {
+      GETurl    = paste0("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=", 
+                         user,"&count=", nToGet)
+    } else {
+      GETurl    = paste0("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=", 
+                         user,"&count=", nToGet,"&max_id=", max_id)
+    }
+    #actual GET and content extract
+    timelineRaw = httr::GET(GETurl, sig)
+    timelineContent = httr::content(timelineRaw)
+    #accumulate content
+    if (i==1) {
+      timeline = timelineContent
+    } else {
+      timeline = c(timeline, timelineContent)
+    }
+    max_id   = min(vapply(timelineContent, function(ls) ls$id, numeric(1)))
+    
+    nLeft = nLeft-nToGet
+  }
+  return(timeline)
+}
+```
+
+We now have a working function to get our tweet data.  In the below chunk we call the function and wrangle the data into a nice `data.table` structure for plotting.
+
+```{r eval=FALSE}
+#call custom function to get tweets for a given user
+my_tweets = get_user_tweets(user="ASpannbauer", n=1000,
+                            api_key, api_secret, access_token, access_token_secret)
+
+#parse out the information we want into a list of data.tables
+tweet_dt_list = lapply(my_tweets, function(tweet) {
+  data.table::data.table(time  = tweet$created_at,
+                         text  = tweet$text,
+                         user  = tweet$user$screen_name,
+                         fav_n = tweet$favorite_count,
+                         rt_n  = tweet$retweet_count)
+})
+#combine list into single data.table
+tweet_dt = data.table::rbindlist(tweet_dt_list)
+#remove retweets
+tweet_dt = tweet_dt[!grepl("^RT", text),]
+
+#combine count of favorites and retweets into single count
+tweet_dt[,total_fav_rt := fav_n + rt_n]
+#truncate tweet text for a preview of the tweet in the viz
+tweet_dt[,text_preview := paste0(substr(text,1, 20), "...")]
+#order by descending popularity
+tweet_dt = tweet_dt[order(-total_fav_rt),]
+#inspect head of data
+head(tweet_dt[,-c("time","text")])
+```
+
+```{r inspect_data, echo=FALSE}
+head(tweet_dt[,-c("time","text")])
+```
+
+Before plotting with the packed barchart let's take a peak at the distribution of the metric we'll be plotting.  As we see in the plot below, this data is very skewed.  This type of distribution is a good case for the packed barchart's intended design.
+
+```{r exp_plot, message=FALSE, warning=FALSE}
+plot(tweet_dt$total_fav_rt, type='l', ylab="Fav|RT Count")
+```
+
+At this point, we're ready to use the packed barchart to see our twitter data in a new light.  To do this we call the function `rPackedBar::plotly_packed_bar` and specify our options.
+
+* `input_data` - the name of the `data.frame` type object containing the data to plot
+* `label_column` - the column in the `input_data` contining labels for our plotted numeric data
+* `value_column` - the column in the `input_data` contining the numeric data to plot
+* `number_rows` - the number of rows our packed barchart will contain
+* `plot_title` - the main title to display over the chart
+* `xaxis_label` - the title to display for the xaxis
+* `hover_label` - title to appear in the hover information
+* `min_label_width` - parameter to prevent text labels spilling over the bounds of the bars
+* `color_bar_color` - color of the largest colored bars in the chart
+* `label_color` - color of the labels to appear over the colored bars in the chart
+
+```{r packedBarFAKE, eval=FALSE}
+p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
+                                  label_column = "text_preview",
+                                  value_column = "total_fav_rt",
+                                  number_rows = 4,
+                                  plot_title = "Tweet Interactions",
+                                  xaxis_label = "Favorites & RTs",
+                                  hover_label = "Favs & RTs",
+                                  min_label_width = .1,
+                                  color_bar_color = "#00aced",
+                                  label_color = "white")
+plotly::config(p, displayModeBar=FALSE)
+```
+
+```{r plotAgain, echo=FALSE}
+set.seed(42)
+p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
+                              label_column = "text_preview",
+                              value_column = "total_fav_rt",
+                              number_rows = 4,
+                              plot_title = "Tweet Interactions",
+                              xaxis_label = "Favorites & RTs",
+                              hover_label = "Favs & RTs",
+                              min_label_width = .1,
+                              color_bar_color = "#00aced",
+                              label_color = "white")
+plotly::config(p, displayModeBar=FALSE)
+```
+
+<br><hr>
