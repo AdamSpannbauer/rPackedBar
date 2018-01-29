@@ -12,3 +12,7 @@
 
 This is a new release, so there are no reverse dependencies.
 
+## Updates per initial CRAN submission recommendations
+
+* removed redundant 'in R' from DESCRIPTION
+* refer to plotly package as 'plotly' (in single quoutes) in DESCRIPTION

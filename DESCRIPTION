@@ -1,6 +1,6 @@
 Package: rPackedBar
 Type: Package
-Title: Packed Bar Charts in R with Plotly
+Title: Packed Bar Charts with 'plotly'
 Version: 0.1.0
 Author: Adam Spannbauer [aut, cre]
 Maintainer: Adam Spannbauer <spannbaueradam@gmail.com>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotly_packed_bar.R
 \name{plotly_packed_bar}
 \alias{plotly_packed_bar}
-\title{Create a plotly packed bar chart
+\title{Create a 'plotly' packed bar chart
 Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).}
 \usage{
 plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
@@ -32,10 +32,10 @@ plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
 \item{label_color}{color of text labels that appear over colored bars}
 }
 \value{
-plotly object of the packed bar chart
+'plotly' object of the packed bar chart
 }
 \description{
-Create a plotly packed bar chart
+Create a 'plotly' packed bar chart
 Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 }
 \details{

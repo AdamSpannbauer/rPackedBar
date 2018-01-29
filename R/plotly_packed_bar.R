@@ -1,4 +1,4 @@
-#' Create a plotly packed bar chart
+#' Create a 'plotly' packed bar chart
 
 #' Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 #' @param input_data data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length
@@ -11,7 +11,7 @@
 #' @param min_label_width min relative length of bar to receive a static label (too small and text will overflow sides of bar)
 #' @param color_bar_color color of main bars in chart (can be name or hex) remaining bars will be variations of gray
 #' @param label_color color of text labels that appear over colored bars
-#' @return plotly object of the packed bar chart
+#' @return 'plotly' object of the packed bar chart
 #' @importFrom plotly "%>%"
 #' @details The packed barchart currently only works for positive data.
 #' @examples
