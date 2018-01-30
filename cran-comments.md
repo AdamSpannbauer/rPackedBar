@@ -16,3 +16,4 @@ This is a new release, so there are no reverse dependencies.
 
 * removed redundant 'in R' from DESCRIPTION
 * refer to plotly package as 'plotly' (in single quoutes) in DESCRIPTION
+* refer to JMP software as 'JMP' (in single quoutes) in DESCRIPTION
