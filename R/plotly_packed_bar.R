@@ -2,8 +2,8 @@
 
 #' Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 #' @param input_data data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length
-#' @param label_column either the column number or quoted name in \code{input_data} to be used as labels (will be used by \code{[[]} to subset)
-#' @param value_column either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[]} to subset)
+#' @param label_column either the column number or quoted name in \code{input_data} to be used as labels (will be used by \code{[[} to subset)
+#' @param value_column either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[} to subset).  See details.
 #' @param number_rows the number of rows to occur in barchart (i.e. the number of colored bars)
 #' @param plot_title main title for plot
 #' @param xaxis_label label to put on xaxis
@@ -13,7 +13,7 @@
 #' @param label_color color of text labels that appear over colored bars
 #' @return 'plotly' object of the packed bar chart
 #' @importFrom plotly "%>%"
-#' @details The packed barchart currently only works for positive data.
+#' @details The packed barchart currently only works for uniformly positive or uniformly negative data; negative values will be removed before plotting when mixed data is provided.
 #' @examples
 #' \dontrun{
 #' data(GNI2014, package = 'treemap')
@@ -43,6 +43,14 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                              label_color = 'black') {
 
   my_data_sum = data.table::copy(input_data)
+
+  if (any(my_data_sum[[value_column]] > 0) & any(my_data_sum[[value_column]] < 0)) {
+    warning("There were positve and negative values found in your `value_column`;
+            plotly_packed_bar currently only supports uniformly positive or uniformly negative data.
+            The negative values will be removed before plotting when mixed data is provided.")
+    my_data_sum = my_data_sum[my_data_sum[[value_column]] > 0,]
+  }
+
   my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])
 
   color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column, min_label_width, label_color)

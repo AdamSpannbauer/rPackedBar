@@ -13,9 +13,9 @@ plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
 \arguments{
 \item{input_data}{data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length}
 
-\item{label_column}{either the column number or quoted name in \code{input_data} to be used as labels (will be used by \code{[[]} to subset)}
+\item{label_column}{either the column number or quoted name in \code{input_data} to be used as labels (will be used by \code{[[} to subset)}
 
-\item{value_column}{either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[]} to subset)}
+\item{value_column}{either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[} to subset).  See details.}
 
 \item{number_rows}{the number of rows to occur in barchart (i.e. the number of colored bars)}
 
@@ -39,7 +39,7 @@ Create a 'plotly' packed bar chart
 Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 }
 \details{
-The packed barchart currently only works for positive data.
+The packed barchart currently only works for uniformly positive or uniformly negative data; negative values will be removed before plotting when mixed data is provided.
 }
 \examples{
 \dontrun{
