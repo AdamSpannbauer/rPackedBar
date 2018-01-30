@@ -23,7 +23,6 @@ set.seed(42)
 p = rPackedBar::plotly_packed_bar(input_data = tweet_dt[total_fav_rt>0,],
                               label_column = "text_preview",
                               value_column = "total_fav_rt",
-                              number_rows = 4,
                               plot_title = "Tweet Interactions",
                               xaxis_label = "Favorites & RTs",
                               hover_label = "Favs & RTs",

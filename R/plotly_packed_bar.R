@@ -1,10 +1,10 @@
 #' Create a 'plotly' packed bar chart
 
-#' Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
+#' @description Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 #' @param input_data data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length
 #' @param label_column either the column number or quoted name in \code{input_data} to be used as labels (will be used by \code{[[} to subset)
 #' @param value_column either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[} to subset).  See details.
-#' @param number_rows the number of rows to occur in barchart (i.e. the number of colored bars)
+#' @param number_rows The number of rows to occur in barchart (i.e. the number of colored bars).  The default of 'guess' will attempt to find the 'elbow' in the numeric data with a min value of 3 and a max of 25.
 #' @param plot_title main title for plot
 #' @param xaxis_label label to put on xaxis
 #' @param hover_label text to appear by number in hover information (typically same as xaxis label)
@@ -24,7 +24,6 @@
 #' plotly_packed_bar(my_input_data,
 #'                   label_column    = 'country',
 #'                   value_column    = 'V1',
-#'                   number_rows     = 4,
 #'                   plot_title      = 'Population 2014',
 #'                   xaxis_label     = 'Population',
 #'                   hover_label     = 'Population',
@@ -34,7 +33,7 @@
 
 #' @export
 plotly_packed_bar = function(input_data, label_column, value_column,
-                             number_rows=3,
+                             number_rows='guess',
                              plot_title='',
                              xaxis_label='',
                              hover_label='',
@@ -49,6 +48,16 @@ plotly_packed_bar = function(input_data, label_column, value_column,
             plotly_packed_bar currently only supports uniformly positive or uniformly negative data.
             The negative values will be removed before plotting when mixed data is provided.")
     my_data_sum = my_data_sum[my_data_sum[[value_column]] > 0,]
+  }
+
+  if (number_rows == "guess") {
+    number_rows = guess_bar_count(my_data_sum[[value_column]], min_bar = 3, max_bar = 15)
+  } else {
+    if (is.numeric(number_rows)) {
+      number_rows = as.integer(number_rows)[1]
+    } else {
+      stop("number_rows must be numeric or 'guess'")
+    }
   }
 
   my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])

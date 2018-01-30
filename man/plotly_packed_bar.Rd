@@ -2,12 +2,11 @@
 % Please edit documentation in R/plotly_packed_bar.R
 \name{plotly_packed_bar}
 \alias{plotly_packed_bar}
-\title{Create a 'plotly' packed bar chart
-Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).}
+\title{Create a 'plotly' packed bar chart}
 \usage{
-plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
-  plot_title = "", xaxis_label = "", hover_label = "",
-  min_label_width = 0.03, color_bar_color = "steelblue",
+plotly_packed_bar(input_data, label_column, value_column,
+  number_rows = "guess", plot_title = "", xaxis_label = "",
+  hover_label = "", min_label_width = 0.03, color_bar_color = "steelblue",
   label_color = "black")
 }
 \arguments{
@@ -17,7 +16,7 @@ plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
 
 \item{value_column}{either the column number or quoted name in \code{input_data} to be used as numbers for bar lengths (will be used by \code{[[} to subset).  See details.}
 
-\item{number_rows}{the number of rows to occur in barchart (i.e. the number of colored bars)}
+\item{number_rows}{The number of rows to occur in barchart (i.e. the number of colored bars).  The default of 'guess' will attempt to find the 'elbow' in the numeric data with a min value of 3 and a max of 25.}
 
 \item{plot_title}{main title for plot}
 
@@ -35,7 +34,6 @@ plotly_packed_bar(input_data, label_column, value_column, number_rows = 3,
 'plotly' object of the packed bar chart
 }
 \description{
-Create a 'plotly' packed bar chart
 Packed bar charts are a variation of treemaps for visualizing skewed data.  The concept was introduced by XanGregg at JMP (\url{https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972}).
 }
 \details{
@@ -51,7 +49,6 @@ my_input_data = GNI2014[,sum(population), by=country]
 plotly_packed_bar(my_input_data,
                   label_column    = 'country',
                   value_column    = 'V1',
-                  number_rows     = 4,
                   plot_title      = 'Population 2014',
                   xaxis_label     = 'Population',
                   hover_label     = 'Population',
