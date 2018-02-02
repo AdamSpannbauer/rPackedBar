@@ -2,6 +2,8 @@
 .Rhistory
 .Rapp.history
 
+example_app/*
+
 # Session Data files
 .RData
 # Example code in package build process

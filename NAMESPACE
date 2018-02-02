@@ -1,3 +1,5 @@
 export("plotly_packed_bar")
+export("renderPackedBar")
+export("packedBarOutput")
 importFrom("grDevices", "colorRampPalette")
 importFrom("plotly", "%>%")
