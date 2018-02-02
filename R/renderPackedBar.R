@@ -1,7 +1,7 @@
-#' Plot rPackedBar in shiny
+#' Plot rPackedBar in 'shiny'
 #'
 #' @description
-#' Output and render functions for using rPackedBar within Shiny applications and interactive Rmd documents.
+#' Output and render functions for using 'rPackedBar' within 'shiny' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{"100\%"},

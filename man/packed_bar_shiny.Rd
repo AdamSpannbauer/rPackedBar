@@ -4,7 +4,7 @@
 \alias{packed_bar_shiny}
 \alias{packedBarOutput}
 \alias{renderPackedBar}
-\title{Plot rPackedBar in shiny}
+\title{Plot rPackedBar in 'shiny'}
 \usage{
 packedBarOutput(outputId, width = "100\%", height = "400px",
   inline = FALSE, clickedBarInputId = paste0(outputId, "_clicked"))
@@ -31,5 +31,5 @@ Defaults to \code{outputId_clicked} and can be referenced in the server as \code
 is useful if you want to save an expression in a variable.}
 }
 \description{
-Output and render functions for using rPackedBar within Shiny applications and interactive Rmd documents.
+Output and render functions for using 'rPackedBar' within 'shiny' applications and interactive Rmd documents.
 }
