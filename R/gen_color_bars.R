@@ -40,20 +40,21 @@ gen_color_bars = function(summ_dt, number_rows, bar_color, label_column, min_lab
     x = as.numeric(row[['max_rel_val']])/2
     y = row_y_list[[color_row_i]]$y0 - (row_y_list[[color_row_i]]$y0 - row_y_list[[color_row_i]]$y1)/2
     out_ann = list(
-      x = x,
+      x = .001,
       y = y,
       xref = 'x',
       yref = 'y',
       #set label
       text = row[[label_column]],
       showarrow = FALSE,
+      xanchor='left',
       font = list(color = label_color)
     )
 
     #put point at center of shape for hover info
     hover_point = data.table::data.table(
       name = row[[label_column]],
-      x = x,
+      x = seq(0, x*2, length.out = 25),
       y = y,
       size = row[['max_rel_val']]-0
     )

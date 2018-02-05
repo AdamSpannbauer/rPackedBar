@@ -19,7 +19,7 @@ gen_gray_bars = function(summ_dt, number_rows, color_bar_data, label_column, min
   #get max x level for each bar level
   row_sums = color_bar_data$max_rel_val
   #gen gray ramp function
-  gray_gen = colorRampPalette(c("#E8E8E8","#909090"))
+  gray_gen = colorRampPalette(c("#E8E8E8","#cccccc"))
   #gen gray ramp
   grays = gray_gen(105)
   low_grays = grays[1:50]
@@ -74,7 +74,7 @@ gen_gray_bars = function(summ_dt, number_rows, color_bar_data, label_column, min
     #put point at center of shape for hover info
     hover_point = data.table::data.table(
       name = row[[label_column]],
-      x = x,
+      x = seq(x0, x0+x_val, length.out = 10),
       y = y,
       size = x1-x0
     )
