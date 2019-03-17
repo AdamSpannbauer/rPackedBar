@@ -1,7 +1,7 @@
 ---
 title: "Visualizing Twitter Data with a Packed Barchart"
 author: "Adam Spannbauer"
-date: "`r Sys.Date()`"
+date: "2018-01-28"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -12,6 +12,10 @@ vignette: >
 Before we start the process of getting and visualizing the twitter data.  Lets go ahead and take a peak at the packed barchart that will be the output of the process.
 
 <br>
+
+```{r echo=FALSE, warnings=FALSE, error=FALSE}
+suppressWarnings(RNGversion("3.5.0"))
+```
 
 ```{r read_in_data, echo=FALSE}
 tweet_dt = data.table::fread("tweet_data.csv")

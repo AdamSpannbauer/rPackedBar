@@ -1,6 +1,7 @@
 context("plotting functions")
 
 test_that("plot class output", {
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(42)
   plot_df = data.frame(lab=letters,
                        val=rexp(26),
