@@ -1,19 +1,14 @@
 ## Test environments
-* local OS X install, R 3.4.2
-* ubuntu 12.04 (on travis-ci), R 3.4.2
-* win-builder devel and release
-  * 1 NOTE: for possible misspelled words
+
+* win-builder (r devel and release)
+* travis-ci (build passing for r devel and release)
+* appveyor (build passing)
+* local macOS Mojave 10.14; R version 3.4.4
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 0 notes
 
-## Reverse dependencies
+### Details
 
-This is a new release, so there are no reverse dependencies.
-
-## Updates per initial CRAN submission recommendations
-
-* removed redundant 'in R' from DESCRIPTION
-* refer to plotly package as 'plotly' (in single quoutes) in DESCRIPTION
-* refer to JMP software as 'JMP' (in single quoutes) in DESCRIPTION
+This release is specifically to patch R 3.6.0 RNG issues in tests & vignette.
