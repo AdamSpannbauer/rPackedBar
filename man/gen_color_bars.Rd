@@ -4,8 +4,8 @@
 \alias{gen_color_bars}
 \title{internal helper function to create colored portion of packed barchart}
 \usage{
-gen_color_bars(summ_dt, number_rows, bar_color, label_column, min_label_width,
-  label_color)
+gen_color_bars(summ_dt, number_rows, bar_color, label_column,
+  min_label_width, label_color)
 }
 \description{
 internal helper function to create colored portion of packed barchart
