@@ -6,8 +6,8 @@
 \usage{
 plotly_packed_bar(input_data, label_column, value_column,
   number_rows = "guess", plot_title = "", xaxis_label = "",
-  hover_label = "", min_label_width = 0.03, color_bar_color = "steelblue",
-  label_color = "black")
+  hover_label = "", min_label_width = 0.03,
+  color_bar_color = "steelblue", label_color = "black")
 }
 \arguments{
 \item{input_data}{data.frame with data to plot, should have a column of labels for bars and column of numbers relating to bar length}
