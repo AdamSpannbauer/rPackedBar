@@ -3,18 +3,19 @@ context("gen color bars")
 test_that("output object class and structure", {
   suppressWarnings(RNGversion("3.5.0"))
   set.seed(42)
-  plot_df = data.frame(lab=letters,
-                       val=rexp(26),
+  plot_df = data.frame(lab = letters,
+                       val = rexp(26),
                        stringsAsFactors = FALSE)
 
-  plot_df$max_rel_val = plot_df$val/sum(plot_df$val)
+  plot_df$max_rel_val = plot_df$val / sum(plot_df$val)
 
-  output = gen_color_bars(plot_df, number_rows=3, bar_color='blue', label_column='lab', min_label_width=.03, 'black')
+  output = gen_color_bars(plot_df, number_rows = 3, bar_color = "blue",
+                          label_column = "lab", min_label_width = .03, "black")
 
   expect_identical(class(output), "list")
 
   expect_identical(class(output$raw_data), "data.frame")
-  expect_identical(dim(output$raw_data), c(3L,3L))
+  expect_identical(dim(output$raw_data), c(3L, 3L))
 
   expect_identical(class(output$bar_list), "list")
   expect_identical(length(output$bar_list), 3L)
@@ -35,10 +36,10 @@ test_that("output object class and structure", {
   expect_identical(lapply(output$ann_list[[1]], class),
                    list(x = "numeric", y = "numeric", xref = "character",
                         yref = "character", text = "character", showarrow = "logical",
-                        xanchor = "character", font="list"))
+                        xanchor = "character", font = "list"))
 
   expect_identical(class(output$hover_point_dt), c("data.table", "data.frame"))
-  expect_identical(dim(output$hover_point_dt), c(75L,4L))
+  expect_identical(dim(output$hover_point_dt), c(75L, 4L))
   expect_identical(names(output$hover_point_dt), c("name", "x", "y", "size"))
   expect_identical(lapply(output$hover_point_dt, class), list(name = "character", x = "numeric",
                                                               y = "numeric", size = "numeric"))

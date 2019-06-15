@@ -22,24 +22,24 @@
 #' my_input_data = GNI2014[,sum(population), by=country]
 #'
 #' plotly_packed_bar(my_input_data,
-#'                   label_column    = 'country',
-#'                   value_column    = 'V1',
-#'                   plot_title      = 'Population 2014',
-#'                   xaxis_label     = 'Population',
-#'                   hover_label     = 'Population',
+#'                   label_column    = "country",
+#'                   value_column    = "V1",
+#'                   plot_title      = "Population 2014",
+#'                   xaxis_label     = "Population",
+#'                   hover_label     = "Population",
 #'                   min_label_width = .025,
-#'                   color_bar_color ='orange')
+#'                   color_bar_color = "orange")
 #' }
 
 #' @export
 plotly_packed_bar = function(input_data, label_column, value_column,
-                             number_rows='guess',
-                             plot_title='',
-                             xaxis_label='',
-                             hover_label='',
+                             number_rows="guess",
+                             plot_title="",
+                             xaxis_label="",
+                             hover_label="",
                              min_label_width=.03,
-                             color_bar_color='steelblue',
-                             label_color = 'black') {
+                             color_bar_color="steelblue",
+                             label_color = "black") {
 
   my_data_sum = data.table::copy(input_data)
 
@@ -47,7 +47,7 @@ plotly_packed_bar = function(input_data, label_column, value_column,
     warning("There were positve and negative values found in your `value_column`;
             plotly_packed_bar currently only supports uniformly positive or uniformly negative data.
             The negative values will be removed before plotting when mixed data is provided.")
-    my_data_sum = my_data_sum[my_data_sum[[value_column]] > 0,]
+    my_data_sum = my_data_sum[my_data_sum[[value_column]] > 0, ]
   }
 
   if (number_rows == "guess") {
@@ -60,13 +60,13 @@ plotly_packed_bar = function(input_data, label_column, value_column,
     }
   }
 
-  my_data_sum$max_rel_val = my_data_sum[[value_column]]/sum(my_data_sum[[value_column]])
+  my_data_sum$max_rel_val = my_data_sum[[value_column]] / sum(my_data_sum[[value_column]])
 
   color_data = gen_color_bars(my_data_sum, number_rows, color_bar_color, label_column, min_label_width, label_color)
   gray_data  = gen_gray_bars(my_data_sum, number_rows, color_data$raw_data, label_column, min_label_width)
 
   #set canvas shape based on xvalues. make y points 0-1
-  canvas_df = data.frame(x=0:max(gray_data$row_sums), y=0:1)
+  canvas_df = data.frame(x = 0:max(gray_data$row_sums), y = 0:1)
 
   x_labs = gen_xaxis_labels(gray_data$row_sums, sum(my_data_sum[[value_column]]))
 
@@ -79,8 +79,7 @@ plotly_packed_bar = function(input_data, label_column, value_column,
                             gray_data$ann_list, color_data$ann_list,
                             x_labs$tick_breaks, x_labs$tick_text)
 
-  p = plotly::layout(p, margin=list(l = 0, r=0))
+  p = plotly::layout(p, margin = list(l = 0, r = 0))
 
   return(p)
 }
-

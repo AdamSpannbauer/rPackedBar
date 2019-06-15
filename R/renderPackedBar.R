@@ -18,6 +18,7 @@
 #' @name packed_bar_shiny
 NULL
 
+# nolint start
 get_clicked_packed_bar = function(outputId, inputId) {
   script = sprintf(SCRIPT_TEMPLATE, outputId, outputId, inputId)
   shiny::tags$script(shiny::HTML(script))
@@ -43,3 +44,4 @@ renderPackedBar = function(expr, env = parent.frame(), quoted = FALSE) {
   }
   plotly::renderPlotly(expr = expr, env = env, quoted = quoted)
 }
+# nolint end

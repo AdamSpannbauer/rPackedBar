@@ -1,7 +1,7 @@
 context("gen xlabs")
 
 test_that("xlabs class", {
-  row_sums = runif(4,.2,.3)
+  row_sums = runif(4, .2, .3)
   total_x  = runif(1, 1, 10000)
 
   xlabs = gen_xaxis_labels(row_sums, total_x)
@@ -28,5 +28,5 @@ test_that("bad input", {
 
   expect_error(gen_xaxis_labels("row_sums", total_x))
   expect_error(gen_xaxis_labels(row_sums, "total_x"))
-  expect_error(gen_xaxis_labels(row_sums, c(10,100)))
+  expect_error(gen_xaxis_labels(row_sums, c(10, 100)))
 })

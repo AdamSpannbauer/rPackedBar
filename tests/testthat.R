@@ -1,4 +1,4 @@
 library(testthat)
-library(rPackedBar)
+library(rPackedBar)  # nolint
 
 test_check("rPackedBar")
