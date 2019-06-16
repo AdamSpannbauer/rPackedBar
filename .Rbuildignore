@@ -11,3 +11,5 @@ vignettes/tweet_data.csv
 README.md
 ^cran-comments\.md$
 example_app
+.lintr
+internal_data
