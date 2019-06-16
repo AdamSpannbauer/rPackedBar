@@ -1,9 +1,7 @@
 ## Test environments
 
-* win-builder (r devel and release)
-* travis-ci (build passing for r devel and release)
-* appveyor (build passing)
-* local macOS Mojave 10.14; R version 3.4.4
+* win-builder (devel, release, & oldrelease)
+* travis-ci (devel & release)
 
 ## R CMD check results
 
@@ -11,4 +9,4 @@
 
 ### Details
 
-This release is specifically to patch R 3.6.0 RNG issues in tests & vignette.
+This release is a round of bug fixes.
