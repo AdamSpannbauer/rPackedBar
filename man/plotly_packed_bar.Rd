@@ -47,12 +47,12 @@ data.table::setDT(GNI2014)
 my_input_data = GNI2014[,sum(population), by=country]
 
 plotly_packed_bar(my_input_data,
-                  label_column    = 'country',
-                  value_column    = 'V1',
-                  plot_title      = 'Population 2014',
-                  xaxis_label     = 'Population',
-                  hover_label     = 'Population',
+                  label_column    = "country",
+                  value_column    = "V1",
+                  plot_title      = "Population 2014",
+                  xaxis_label     = "Population",
+                  hover_label     = "Population",
                   min_label_width = .025,
-                  color_bar_color ='orange')
+                  color_bar_color = "orange")
 }
 }

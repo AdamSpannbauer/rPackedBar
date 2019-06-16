@@ -18,23 +18,21 @@
 #' @name packed_bar_shiny
 NULL
 
+# nolint start
 get_clicked_packed_bar = function(outputId, inputId) {
-  shiny::tags$script(shiny::HTML(
-    sprintf("$(document).on('plotly_click', '#%s', function() {", outputId),
-    sprintf('out = document.querySelector("#%s > div > div > svg:nth-child(3) > g.hoverlayer > g.hovertext > text > tspan:nth-child(1)").innerHTML;', outputId),
-    sprintf("Shiny.onInputChange('%s', out);", inputId),
-    "});"
-  ))
+  script = sprintf(SCRIPT_TEMPLATE, outputId, outputId, inputId)
+  shiny::tags$script(shiny::HTML(script))
 }
 
 #' @rdname packed_bar_shiny
 #' @export
-packedBarOutput = function(outputId, width = "100%", height = "400px",
-                           inline = FALSE, clickedBarInputId=paste0(outputId,"_clicked")) {
-
-  plotly_out = plotly::plotlyOutput('pack_bar')
-  shiny::div(get_clicked_packed_bar(outputId, clickedBarInputId), plotly_out)
-
+packedBarOutput = function(outputId, width = "100%", height = "400px", inline = FALSE,
+                           clickedBarInputId = paste0(outputId, "_clicked")) {
+  plotly_out = plotly::plotlyOutput(outputId)
+  shiny::div(
+    get_clicked_packed_bar(outputId, clickedBarInputId),
+    plotly_out
+  )
 }
 
 #' @rdname packed_bar_shiny
@@ -46,3 +44,4 @@ renderPackedBar = function(expr, env = parent.frame(), quoted = FALSE) {
   }
   plotly::renderPlotly(expr = expr, env = env, quoted = quoted)
 }
+# nolint end

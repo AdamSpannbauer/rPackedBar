@@ -4,7 +4,7 @@
 \alias{guess_bar_count}
 \title{internal function to 'guess' correct number of colored bars in packed barchat using an elbow method}
 \usage{
-guess_bar_count(num_vec, min_bar = 3, max_bar = 25)
+guess_bar_count(x, min_bar = 3, max_bar = 25)
 }
 \description{
 internal function to 'guess' correct number of colored bars in packed barchat using an elbow method
