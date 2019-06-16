@@ -20,7 +20,7 @@ guess_bar_count = function(x, min_bar = 3, max_bar = 25) {
     obs = c(i, fit_y[i])
 
     stats::dist(rbind(pred, obs))[1]
-  }, numeric(1))
+  }, numeric(1))  # nolint
 
   # Max distance point
   elbow_ind = which.max(distances) - 1
@@ -30,6 +30,3 @@ guess_bar_count = function(x, min_bar = 3, max_bar = 25) {
 
   return(elbow_ind)
 }
-
-
-
