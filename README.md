@@ -1,6 +1,6 @@
 # rPackedBar
 
-[![Travis-CI Build Status](https://travis-ci.org/AdamSpannbauer/rPackedBar.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/rPackedBar) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AdamSpannbauer/rPackedBar?branch=master&svg=true)](https://ci.appveyor.com/project/AdamSpannbauer/rPackedBar) [![Coverage Status](https://img.shields.io/codecov/c/github/AdamSpannbauer/rPackedBar/master.svg)](https://codecov.io/github/AdamSpannbauer/rPackedBar?branch=master) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rPackedBar)](https://cran.r-project.org/package=rPackedBar) ![](http://cranlogs.r-pkg.org/badges/grand-total/rPackedBar)
+[![Travis-CI Build Status](https://travis-ci.org/AdamSpannbauer/rPackedBar.svg?branch=master)](https://travis-ci.org/AdamSpannbauer/rPackedBar) [![Coverage Status](https://img.shields.io/codecov/c/github/AdamSpannbauer/rPackedBar/master.svg)](https://codecov.io/github/AdamSpannbauer/rPackedBar?branch=master) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rPackedBar)](https://cran.r-project.org/package=rPackedBar) ![](http://cranlogs.r-pkg.org/badges/grand-total/rPackedBar)
 
 Packed Bar Charts in R with Plotly ([Introducing Packed Bars](https://community.jmp.com/t5/JMP-Blog/Introducing-packed-bars-a-new-chart-form/ba-p/39972))
 
